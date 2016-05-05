@@ -1,4 +1,10 @@
 
+// Toggle field layouts of row
+function toggleFieldLayouts(el) {
+	$(el).closest('tr').find('.toggle').click();
+}
+
+// On ready
 $(function () {
 	$('.tableview').on('click', '.toggle', function () {
 		var id = $(this).data('id');

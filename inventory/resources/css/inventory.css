@@ -1,6 +1,18 @@
 
 table.inventory {}
 
+table.inventory tr td:first-child {
+	padding-left: 20px;
+}
+
+table.inventory span.a {
+	color: #0d78f2;
+	cursor: pointer;
+}
+table.inventory span.a:hover {
+	text-decoration: underline;
+}
+
 table.inventory .layout-details {
 	position: relative;
 	display: inline-block;
@@ -11,7 +23,8 @@ table.inventory .layout-details {
 	outline: none;
 }
 
-table.inventory .toggle {
+table.inventory .toggle,
+table.inventory .layouts-total {
 	cursor: pointer;
 }
 

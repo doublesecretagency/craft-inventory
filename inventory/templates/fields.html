@@ -76,11 +76,11 @@
 
 						{% set showDetails = false %}
 						<tr>
-							<td style="padding-left:20px">
+							<td>
 								<span class="toggle {{ showDetails ? 'expanded' }}" data-id="{{ field.id }}" title="Show/hide details"></span>
-								{{ layouts|length }}
+								<span class="layouts-total" onclick="toggleFieldLayouts(this)">{{ layouts|length }}</span>
 							</td>
-							<td><div class="element small" style="font-weight:bold">{{ field.name }}</div></td>
+							<td><div class="element small" style="font-weight:bold"><span class="a" onclick="toggleFieldLayouts(this)">{{ field.name }}</span></div></td>
 							<td><code>{{ field.handle }}</code></td>
 							<td>
 								{% set fieldType = field.getFieldType() %}
