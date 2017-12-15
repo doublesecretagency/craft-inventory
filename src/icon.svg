@@ -5,8 +5,8 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <circle id="circle" fill="#B1E8E0" sketch:type="MSShapeGroup" cx="50" cy="50" r="50"></circle>
         <g id="inventory" sketch:type="MSLayerGroup">
-            <path d="M50,100 C77.6142375,100 100,77.6142375 100,50 C100,22.3857625 77.6142375,0 50,0 C22.3857625,0 0,22.3857625 0,50 C0,77.6142375 22.3857625,100 50,100 Z" id="Oval" fill="#B1E8E0" sketch:type="MSShapeGroup"></path>
             <g id="outer" transform="translate(15.370890, 15.608627)" sketch:type="MSShapeGroup">
                 <path d="M27.540721,25.5853475 L28.1981918,71.3913729 L68.8152764,55.7100309 L71.9565257,13.4804519 L27.540721,25.5853475 Z" id="right-outer" fill="#E66D18"></path>
                 <path d="M0,8.94111607 L2.99514472,49.8639165 L28.1981918,71.3913729 L27.540721,25.5853475 L0,8.94111607 Z" id="left-outer" fill="#B4510B"></path>
