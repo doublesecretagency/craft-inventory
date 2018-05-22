@@ -85,12 +85,21 @@ class InventoryService extends Component
         // Set default data
         $data = array(
             'id'          => $row['layoutId'],
-            'elementType' => $eType::displayName(),
+            'elementType' => null,
             'section'     => null,
             'entryType'   => null,
             'tab'         => null,
             'editLayout'  => null,
         );
+
+        // If not a valid element type, bail
+        if (!class_exists($eType)) {
+            $data['elementType'] = '<span class="error">'.$eType.'</span>';
+            return $data;
+        }
+
+        // Set element type
+        $data['elementType'] = $eType::displayName();
 
         // Configure based on element type
         switch ($eType::refHandle()) {
