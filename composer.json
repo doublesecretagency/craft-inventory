@@ -2,7 +2,7 @@
     "name": "doublesecretagency/craft-inventory",
     "description": "Take stock of your field usage.",
     "type": "craft-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "keywords": [
         "craft",
         "cms",
@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0-RC1"
+        "craftcms/cms": "^3.0"
     },
     "autoload": {
         "psr-4": {
