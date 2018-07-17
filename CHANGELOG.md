@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.2 - 2018-07-16
+
+### Changed
+- Properly mark orphaned layouts, instead of throwing an error.
+
 ## 2.0.1 - 2018-05-21
 
 ### Fixed
