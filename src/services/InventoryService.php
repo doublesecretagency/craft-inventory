@@ -32,19 +32,19 @@ class InventoryService extends Component
      */
     public function getFieldLayouts(&$context)
     {
-        $context['fieldLayouts'] = array();
+        $context['fieldLayouts'] = [];
 
         foreach ($context['fields'] as $field) {
 
-            $layouts = array();
+            $layouts = [];
             foreach ($this->_getRelatedLayoutIds($field) as $row) {
                 $layouts[] = $this->_getLayoutData($row);
             }
 
-            $context['fieldLayouts'][] = array(
+            $context['fieldLayouts'][] = [
                 'field'   => $field,
                 'layouts' => $layouts,
-            );
+            ];
         }
     }
 
@@ -60,7 +60,7 @@ class InventoryService extends Component
         return (new Query())
             ->select(['layoutId','tabId'])
             ->from(['{{%fieldlayoutfields}}'])
-            ->where('fieldId=:id', array(':id' => $field->id))
+            ->where('fieldId=:id', [':id' => $field->id])
             ->orderBy('layoutId ASC')
             ->all();
     }
@@ -79,18 +79,18 @@ class InventoryService extends Component
         $eType = (new Query())
             ->select(['type'])
             ->from('{{%fieldlayouts}}')
-            ->where('id=:id', array(':id' => $row['layoutId']))
+            ->where('id=:id', [':id' => $row['layoutId']])
             ->scalar();
 
         // Set default data
-        $data = array(
+        $data = [
             'id'          => $row['layoutId'],
             'elementType' => null,
             'section'     => null,
             'entryType'   => null,
             'tab'         => null,
             'editLayout'  => null,
-        );
+        ];
 
         // If not a valid element type, bail
         if (!class_exists($eType)) {
@@ -110,7 +110,7 @@ class InventoryService extends Component
                 $entryType = (new Query())
                     ->select(['id','name','sectionId'])
                     ->from('{{%entrytypes}}')
-                    ->where('fieldLayoutId=:id', array(':id' => $row['layoutId']))
+                    ->where('fieldLayoutId=:id', [':id' => $row['layoutId']])
                     ->one();
 
                 // Get section
@@ -120,7 +120,7 @@ class InventoryService extends Component
                 $data['tab'] = (new Query())
                     ->select(['name'])
                     ->from('{{%fieldlayouttabs}}')
-                    ->where('id=:id', array(':id' => $row['tabId']))
+                    ->where('id=:id', [':id' => $row['tabId']])
                     ->scalar();
 
                 // Set entry layout data
@@ -139,7 +139,7 @@ class InventoryService extends Component
                 $globalSet = (new Query())
                     ->select(['id','name'])
                     ->from('{{%globalsets}}')
-                    ->where('fieldLayoutId=:id', array(':id' => $row['layoutId']))
+                    ->where('fieldLayoutId=:id', [':id' => $row['layoutId']])
                     ->one();
 
                 // Get section
@@ -149,7 +149,7 @@ class InventoryService extends Component
                 $data['tab'] = (new Query())
                     ->select(['name'])
                     ->from('{{%fieldlayouttabs}}')
-                    ->where('id=:id', array(':id' => $row['tabId']))
+                    ->where('id=:id', [':id' => $row['tabId']])
                     ->scalar();
 
                 // Edit layout
@@ -164,7 +164,7 @@ class InventoryService extends Component
                 $assetSource = (new Query())
                     ->select(['id','name'])
                     ->from('{{%volumes}}')
-                    ->where('fieldLayoutId=:id', array(':id' => $row['layoutId']))
+                    ->where('fieldLayoutId=:id', [':id' => $row['layoutId']])
                     ->one();
 
                 // Get section
@@ -182,7 +182,7 @@ class InventoryService extends Component
                 $data['tab'] = (new Query())
                     ->select(['name'])
                     ->from('{{%fieldlayouttabs}}')
-                    ->where('id=:id', array(':id' => $row['tabId']))
+                    ->where('id=:id', [':id' => $row['tabId']])
                     ->scalar();
 
                 // Edit layout
