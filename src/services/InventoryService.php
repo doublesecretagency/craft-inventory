@@ -113,6 +113,13 @@ class InventoryService extends Component
                     ->where('fieldLayoutId=:id', [':id' => $row['layoutId']])
                     ->one();
 
+                // If no valid section ID, bail
+                if (!$entryType) {
+                    $error = 'Orphaned layout';
+                    $data['section'] = '<span class="error">'.$error.'</span>';
+                    return $data;
+                }
+
                 // Get section
                 $section = Craft::$app->getSections()->getSectionById($entryType['sectionId']);
 

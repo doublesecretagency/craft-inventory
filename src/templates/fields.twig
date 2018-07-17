@@ -27,7 +27,7 @@
     <tr>
         <td>{{ layout.id }}</td>
         <td>{{ (layout.elementType ?? '-')|raw }}</td>
-        <td>{{ layout.section     ?? '-' }}</td>
+        <td>{{ (layout.section     ?? '-')|raw }}</td>
         <td>{{ layout.entryType   ?? '-' }}</td>
         <td>{{ layout.tab         ?? '-' }}</td>
         <td>{{ (layout.editLayout ? '<a href="' ~ layout.editLayout ~ '">' ~ "Edit layout"|t ~ '</a>' : '&nbsp;')|raw }}</td>
