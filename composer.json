@@ -2,7 +2,7 @@
     "name": "doublesecretagency/craft-inventory",
     "description": "Take stock of your field usage.",
     "type": "craft-plugin",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "keywords": [
         "craft",
         "cms",

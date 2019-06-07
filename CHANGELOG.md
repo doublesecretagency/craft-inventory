@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.3 - 2019-06-07
+
+### Fixed
+- Fixed bug preventing PostgreSQL compatibility.
+
 ## 2.0.2 - 2018-07-16
 
 ### Changed
