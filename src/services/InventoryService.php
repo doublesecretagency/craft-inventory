@@ -58,10 +58,10 @@ class InventoryService extends Component
     private function _getRelatedLayoutIds($field)
     {
         return (new Query())
-            ->select(['layoutId','tabId'])
+            ->select(['[[layoutId]]','[[tabId]]'])
             ->from(['{{%fieldlayoutfields}}'])
-            ->where('fieldId=:id', [':id' => $field->id])
-            ->orderBy('layoutId ASC')
+            ->where('[[fieldId]]=:id', [':id' => $field->id])
+            ->orderBy('[[layoutId]] ASC')
             ->all();
     }
 
@@ -77,9 +77,9 @@ class InventoryService extends Component
 
         // Get element type
         $eType = (new Query())
-            ->select(['type'])
+            ->select(['[[type]]'])
             ->from('{{%fieldlayouts}}')
-            ->where('id=:id', [':id' => $row['layoutId']])
+            ->where('[[id]]=:id', [':id' => $row['layoutId']])
             ->scalar();
 
         // Set default data
@@ -108,9 +108,9 @@ class InventoryService extends Component
 
                 // Get entry type
                 $entryType = (new Query())
-                    ->select(['id','name','sectionId'])
+                    ->select(['[[id]]','[[name]]','[[sectionId]]'])
                     ->from('{{%entrytypes}}')
-                    ->where('fieldLayoutId=:id', [':id' => $row['layoutId']])
+                    ->where('[[fieldLayoutId]]=:id', [':id' => $row['layoutId']])
                     ->one();
 
                 // If no valid section ID, bail
@@ -125,9 +125,9 @@ class InventoryService extends Component
 
                 // Get tab
                 $data['tab'] = (new Query())
-                    ->select(['name'])
+                    ->select(['[[name]]'])
                     ->from('{{%fieldlayouttabs}}')
-                    ->where('id=:id', [':id' => $row['tabId']])
+                    ->where('[[id]]=:id', [':id' => $row['tabId']])
                     ->scalar();
 
                 // Set entry layout data
@@ -144,9 +144,9 @@ class InventoryService extends Component
 
                 // Get global set
                 $globalSet = (new Query())
-                    ->select(['id','name'])
+                    ->select(['[[id]]','[[name]]'])
                     ->from('{{%globalsets}}')
-                    ->where('fieldLayoutId=:id', [':id' => $row['layoutId']])
+                    ->where('[[fieldLayoutId]]=:id', [':id' => $row['layoutId']])
                     ->one();
 
                 // Get section
@@ -154,9 +154,9 @@ class InventoryService extends Component
 
                 // Get tab
                 $data['tab'] = (new Query())
-                    ->select(['name'])
+                    ->select(['[[name]]'])
                     ->from('{{%fieldlayouttabs}}')
-                    ->where('id=:id', [':id' => $row['tabId']])
+                    ->where('[[id]]=:id', [':id' => $row['tabId']])
                     ->scalar();
 
                 // Edit layout
@@ -169,9 +169,9 @@ class InventoryService extends Component
 
                 // Get asset source
                 $assetSource = (new Query())
-                    ->select(['id','name'])
+                    ->select(['[[id]]','[[name]]'])
                     ->from('{{%volumes}}')
-                    ->where('fieldLayoutId=:id', [':id' => $row['layoutId']])
+                    ->where('[[fieldLayoutId]]=:id', [':id' => $row['layoutId']])
                     ->one();
 
                 // Get section
@@ -187,9 +187,9 @@ class InventoryService extends Component
 
                 // Get tab
                 $data['tab'] = (new Query())
-                    ->select(['name'])
+                    ->select(['[[name]]'])
                     ->from('{{%fieldlayouttabs}}')
-                    ->where('id=:id', [':id' => $row['tabId']])
+                    ->where('[[id]]=:id', [':id' => $row['tabId']])
                     ->scalar();
 
                 // Edit layout
