@@ -197,7 +197,8 @@ class InventoryService extends Component
                     ->scalar();
 
                 // Edit layout
-                $data['editLayout'] = UrlHelper::cpUrl('settings/users/fields');
+                $editLayoutPath = 'settings/users/fields';
+                $data['editLayout'] = UrlHelper::cpUrl($editLayoutPath);
 
                 break;
 
@@ -232,6 +233,36 @@ class InventoryService extends Component
             //     $data['entryType'] = null;
             //     $data['tab']       = null;
             //     break;
+
+            // Ad Wizard
+            case 'ad':
+
+                 // Use ad group name as section
+                $data['section'] = (new Query())
+                     ->select(['[[name]]'])
+                     ->from('{{%adwizard_groups}}')
+                     ->where('[[fieldLayoutId]]=:id', [':id' => $row['layoutId']])
+                     ->scalar();
+
+                // Use ad layout name as entry type
+                $data['entryType'] = (new Query())
+                     ->select(['[[name]]'])
+                     ->from('{{%adwizard_fieldlayouts}}')
+                     ->where('[[id]]=:id', [':id' => $row['layoutId']])
+                     ->scalar();
+
+                // Get tab
+                $data['tab'] = (new Query())
+                     ->select(['[[name]]'])
+                     ->from('{{%fieldlayouttabs}}')
+                     ->where('[[id]]=:id', [':id' => $row['tabId']])
+                     ->scalar();
+
+                 // Edit layout
+                 $editLayoutPath = 'ad-wizard/fieldlayouts/'.$row['layoutId'];
+                 $data['editLayout'] = UrlHelper::cpUrl($editLayoutPath);
+
+                 break;
 
         }
 
