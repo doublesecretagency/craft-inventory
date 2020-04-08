@@ -19,3 +19,8 @@ table.inventory .layout-details p {
     font-style: italic;
     padding: 11px 16px 10px;
 }
+table.inventory .layout-details td.deleted {
+    color: #FB787F;
+    font-style: italic;
+    text-decoration: line-through;
+}

@@ -74,13 +74,12 @@ class InventoryService extends Component
      */
     private function _getLayoutData($row)
     {
-
         // Get element type
-        $eType = (new Query())
-            ->select(['[[type]]'])
+        $layout = (new Query())
+            ->select(['[[type]],[[dateDeleted]]'])
             ->from('{{%fieldlayouts}}')
             ->where('[[id]]=:id', [':id' => $row['layoutId']])
-            ->scalar();
+            ->one();
 
         // Set default data
         $data = [
@@ -90,19 +89,20 @@ class InventoryService extends Component
             'entryType'   => null,
             'tab'         => null,
             'editLayout'  => null,
+            'deleted'     => $layout['dateDeleted'],
         ];
 
         // If not a valid element type, bail
-        if (!class_exists($eType)) {
-            $data['elementType'] = '<span class="error">'.$eType.'</span>';
+        if (!class_exists($layout['type'])) {
+            $data['elementType'] = '<span class="error">'.$layout['type'].'</span>';
             return $data;
         }
 
         // Set element type
-        $data['elementType'] = $eType::displayName();
+        $data['elementType'] = $layout['type']::displayName();
 
         // Configure based on element type
-        switch ($eType::refHandle()) {
+        switch ($layout['type']::refHandle()) {
 
             case 'entry':
 
@@ -121,7 +121,11 @@ class InventoryService extends Component
                 }
 
                 // Get section
-                $section = Craft::$app->getSections()->getSectionById($entryType['sectionId']);
+                $sectionName = (new Query())
+                    ->select(['[[name]]'])
+                    ->from('{{%sections}}')
+                    ->where('[[id]]=:id', [':id' => $entryType['sectionId']])
+                    ->scalar();
 
                 // Get tab
                 $data['tab'] = (new Query())
@@ -131,7 +135,7 @@ class InventoryService extends Component
                     ->scalar();
 
                 // Set entry layout data
-                $data['section']    = ($section ? $section->name : null);
+                $data['section']    = ($sectionName ?? null);
                 $data['entryType']  = $entryType['name'];
 
                 // Edit layout

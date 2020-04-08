@@ -24,16 +24,21 @@
 {% do view.registerAssetBundle('doublesecretagency\\inventory\\web\\assets\\InventoryAssets') %}
 
 {% macro layoutRow(layout) %}
-    {% set link = '&nbsp;' %}
-    {% if layout.editLayout %}
+    {% set deleted = (layout.deleted ? 'deleted') %}
+    {% if deleted %}
+        {% set dateDeleted = layout.deleted|date('short') %}
+        {% set link = "<strong>DELETED (#{dateDeleted})</strong>" %}
+    {% elseif layout.editLayout %}
         {% set link = '<a href="' ~ layout.editLayout ~ '">' ~ 'Edit layout'|t ~ '</a>' %}
+    {% else %}
+        {% set link = '&nbsp;' %}
     {% endif %}
     <tr>
         <td class="code">{{ layout.id }}</td>
-        <td>{{ (layout.elementType ?? '-')|raw }}</td>
-        <td>{{ (layout.section ?? '-')|raw }}</td>
-        <td>{{ layout.entryType ?? '-' }}</td>
-        <td>{{ layout.tab ?? '-' }}</td>
+        <td class="{{ deleted }}">{{ (layout.elementType ?? '-')|raw }}</td>
+        <td class="{{ deleted }}">{{ (layout.section ?? '-')|raw }}</td>
+        <td class="{{ deleted }}">{{ layout.entryType ?? '-' }}</td>
+        <td class="{{ deleted }}">{{ layout.tab ?? '-' }}</td>
         <td>{{ link|raw }}</td>
     </tr>
 {% endmacro %}
