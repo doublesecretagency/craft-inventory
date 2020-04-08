@@ -3,6 +3,24 @@ function toggleFieldLayouts(el) {
     $(el).closest('tr').find('.toggle').click();
 }
 
+// Delete a specified field
+function deleteField(el) {
+    var id = $(el).data('id');
+    var name = $(el).data('name');
+    var warning = Craft.t('app', 'Are you sure you want to delete “{name}”?', {name: name});
+    if (confirm(warning)) {
+        Craft.postActionRequest('fields/delete-field', {id:id}, $.proxy(function(response, textStatus) {
+            if (textStatus === 'success') {
+                if (response.success) {
+                    location.reload();
+                } else {
+                    Craft.cp.displayError();
+                }
+            }
+        }));
+    }
+}
+
 // On ready
 $(function () {
     $('.tableview').on('click', '.fieldtoggle', function () {

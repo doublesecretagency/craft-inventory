@@ -12,6 +12,10 @@ table.inventory .fieldtoggle {
     cursor: pointer;
     font-weight: bold;
 }
+table.inventory .btn-col {
+    text-align: right;
+}
+
 table.inventory .layout-details th {
     text-decoration: underline;
 }
@@ -23,4 +27,8 @@ table.inventory .layout-details td.deleted {
     color: #FB787F;
     font-style: italic;
     text-decoration: line-through;
+}
+table.inventory .layout-details td.unused {
+    color: #FB787F;
+    font-style: italic;
 }

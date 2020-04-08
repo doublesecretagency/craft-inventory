@@ -26,10 +26,13 @@
 {% macro layoutRow(layout) %}
     {% set deleted = (layout.deleted ? 'deleted') %}
     {% if deleted %}
-        {% set dateDeleted = layout.deleted|date('short') %}
-        {% set link = "<strong>DELETED (#{dateDeleted})</strong>" %}
+        {% set dateDeleted = date(layout.deleted).diff(now) %}
+        {% set duration = dateDeleted|duration(false) %}
+        {% set duration = duration|replace('/ and .*$/','') %}
+        {% set duration = duration|replace('/,.*$/','') %}
+        {% set link = "<strong>Deleted #{duration} ago</strong>" %}
     {% elseif layout.editLayout %}
-        {% set link = '<a href="' ~ layout.editLayout ~ '">' ~ 'Edit layout'|t ~ '</a>' %}
+        {% set link = '<a href="' ~ layout.editLayout ~ '" class="btn edit icon"> ' ~ 'Edit layout'|t ~ '</a>' %}
     {% else %}
         {% set link = '&nbsp;' %}
     {% endif %}
@@ -39,7 +42,7 @@
         <td class="{{ deleted }}">{{ (layout.section ?? '-')|raw }}</td>
         <td class="{{ deleted }}">{{ layout.entryType ?? '-' }}</td>
         <td class="{{ deleted }}">{{ layout.tab ?? '-' }}</td>
-        <td>{{ link|raw }}</td>
+        <td class="btn-col">{{ link|raw }}</td>
     </tr>
 {% endmacro %}
 {% from _self import layoutRow %}
@@ -79,7 +82,7 @@
                             <th scope="col">{{ 'Type'|t }}</th>
                             <th scope="col" title="{{ 'Translatable'|t }}">{{ 'T'|t }}</th>
                             {% if groupId is not defined %}<th scope="col">{{ 'Group'|t }}</th>{% endif %}
-                            <th scope="col">{{ 'Edit'|t }}</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody class="vuetable-body">
@@ -101,7 +104,7 @@
                                 </td>
                                 <td><span class="status {{ field.getIsTranslatable() ? 'live' : 'disabled' }} }}"></span></td>
                                 {% if groupId is not defined %}<td>{{ field.group.name|t }}</td>{% endif %}
-                                <td><a href="{{ url('settings/fields/edit/' ~ field.id) }}">{{ "Edit field"|t }}</a></td>
+                                <td class="btn-col"><a href="{{ url('settings/fields/edit/' ~ field.id) }}" class="btn edit icon"> {{ "Edit field"|t }}</a></td>
                             </tr>
                             <tr id="field-{{ field.id }}" {{ not showDetails ? 'style="display:none;"'|raw }}>
                                 <td colspan="100">
@@ -111,11 +114,11 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">{{ 'Layout ID'|t }}</th>
-                                                        <th scope="col">{{ 'Element Type'|t }}</th>
+                                                        <th scope="col">{{ 'Element'|t }}</th>
                                                         <th scope="col">{{ 'Section'|t }}</th>
                                                         <th scope="col">{{ 'Entry Type'|t }}</th>
                                                         <th scope="col">{{ 'Tab'|t }}</th>
-                                                        <th scope="col">{{ 'Edit'|t }}</th>
+                                                        <th scope="col"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -125,7 +128,16 @@
                                                 </tbody>
                                             </table>
                                         {% else %}
-                                            <p>This field is not being used anywhere. {# TODO: <a href="JS action w/ confirmation">Delete it?</a> #}</p>
+                                            <table class="data fullwidth">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="unused">This field is not being used anywhere.</td>
+                                                        <td class="btn-col">
+                                                            <a class="btn delete icon" data-id="{{ field.id }}" data-name="{{ field.name }}" onclick="deleteField(this); return false;"> {{ 'Delete field'|t }}</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         {% endif %}
                                     </div>
                                 </td>
