@@ -17,7 +17,7 @@ You no longer have to wonder... Inventory will show you exactly where your field
 
 ![](src/resources/img/example-inventory.png)
 
-**NEW:** The "T" column shows whether a field is "Translatable".
+\* _The "T" column shows whether a field is "Translatable"_
 
 ***
 
