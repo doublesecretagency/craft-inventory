@@ -15,6 +15,9 @@ use Craft;
 use craft\base\Component;
 use craft\db\Query;
 use craft\helpers\UrlHelper;
+use DateTime;
+use DateTimeZone;
+use Exception;
 
 /**
  * Class InventoryService
@@ -26,9 +29,10 @@ class InventoryService extends Component
     /**
      * Collect all layouts based on existing fields.
      *
-     * @param array  &$context  The current template context.
+     * @param array  &$context The current template context.
      *
      * @return void
+     * @throws Exception
      */
     public function getFieldLayouts(&$context)
     {
@@ -55,7 +59,7 @@ class InventoryService extends Component
      *
      * @return array  Partial data for all layouts which contain the specified field.
      */
-    private function _getRelatedLayoutIds($field)
+    private function _getRelatedLayoutIds($field): array
     {
         return (new Query())
             ->select(['[[layoutId]]','[[tabId]]'])
@@ -68,11 +72,12 @@ class InventoryService extends Component
     /**
      * Get relevant layout data based on field's element type.
      *
-     * @param array  $row  Partial field layout data.
+     * @param array $row Partial field layout data.
      *
      * @return array  Relevant layout data to display.
+     * @throws Exception
      */
-    private function _getLayoutData($row)
+    private function _getLayoutData($row): array
     {
         // Get element type
         $layout = (new Query())
@@ -89,8 +94,15 @@ class InventoryService extends Component
             'entryType'   => null,
             'tab'         => null,
             'editLayout'  => null,
-            'deleted'     => $layout['dateDeleted'],
+            'deleted'     => null,
         ];
+
+        // If layout was deleted, get the timestamp
+        if ($layout['dateDeleted']) {
+            $tz = new DateTimeZone('UTC');
+            $dt = new DateTime($layout['dateDeleted'], $tz);
+            $data['deleted'] = $dt->format('U');
+        }
 
         // If not a valid element type, bail
         if (!class_exists($layout['type'])) {
