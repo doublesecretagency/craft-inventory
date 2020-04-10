@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.1.0 - 2020-04-10
+
+### Added
+- Added ability to delete unused fields.
+- Clearly denotes soft-deleted sections.
+- Added support for Ad Wizard elements.
+
+### Changed
+- Re-styled for Craft 3.4.
+- Changed minimum requirement to Craft 3.4.
+
 ## 2.0.3 - 2019-06-07
 
 ### Fixed
