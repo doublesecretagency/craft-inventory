@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0 - 2020-08-21
+
+### Fixed
+- Be more defensive against missing field layouts.
+
 ## 2.1.0 - 2020-04-10
 
 ### Added

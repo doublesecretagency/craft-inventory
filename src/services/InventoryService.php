@@ -183,19 +183,24 @@ class InventoryService extends Component
 
             case 'asset':
 
-                // Get asset source
-                $assetSource = (new Query())
+                // Get volume
+                $volume = (new Query())
                     ->select(['[[id]]','[[name]]'])
                     ->from('{{%volumes}}')
                     ->where('[[fieldLayoutId]]=:id', [':id' => $row['layoutId']])
                     ->one();
 
-                // Get section
-                $data['section'] = ($assetSource ? $assetSource['name'] : null);
+                // If a valid volume exists
+                if ($volume) {
 
-                // Edit layout
-                $editLayoutPath = 'settings/assets/volumes/'.$assetSource['id'].'#assetvolume-fieldlayout';
-                $data['editLayout'] = UrlHelper::cpUrl($editLayoutPath);
+                    // Get section
+                    $data['section'] = $volume['name'];
+
+                    // Edit layout
+                    $editLayoutPath = 'settings/assets/volumes/'.$volume['id'].'#assetvolume-fieldlayout';
+                    $data['editLayout'] = UrlHelper::cpUrl($editLayoutPath);
+
+                }
 
                 break;
 
