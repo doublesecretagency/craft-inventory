@@ -1,22 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.1.1 (8761) - http://www.bohemiancoding.com/sketch -->
-    <title>Inventory</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <circle id="circle" fill="#B1E8E0" sketch:type="MSShapeGroup" cx="50" cy="50" r="50"></circle>
-        <g id="inventory" sketch:type="MSLayerGroup">
-            <g id="outer" transform="translate(15.370890, 15.608627)" sketch:type="MSShapeGroup">
-                <path d="M27.540721,25.5853475 L28.1981918,71.3913729 L68.8152764,55.7100309 L71.9565257,13.4804519 L27.540721,25.5853475 Z" id="right-outer" fill="#E66D18"></path>
-                <path d="M0,8.94111607 L2.99514472,49.8639165 L28.1981918,71.3913729 L27.540721,25.5853475 L0,8.94111607 Z" id="left-outer" fill="#B4510B"></path>
-                <path d="M0,8.94111607 L27.540721,25.5853475 L71.9565257,13.4804519 L40.9823461,-0.0687778159 L0,8.94111607 Z" id="top-outer" fill="#F18E48"></path>
-            </g>
-            <g id="inner" transform="translate(17.854669, 17.534406)" sketch:type="MSShapeGroup">
-                <path d="M29.659238,27.0296817 L29.9514472,63.894591 L63.1171961,51.4458063 L65.3087655,16.9193427 L29.659238,27.0296817 Z" id="right-inner" fill="#C64D07"></path>
-                <path d="M2.33767393,46.1499145 C2.33767393,46.1499145 23.0860585,63.3391679 23.0845301,63.2755906 C22.7938492,51.1839252 22.2079023,26.5482369 22.2079023,26.5482369 L-1.77635684e-15,12.5863403 L2.33767393,46.1499145 Z" id="left-inner" fill="#A23C00"></path>
-                <path d="M3.94482476,7.49678194 L26.5179887,20.7021226 L62.4597254,11.1420062 L37.5488875,-0.0687778159 L3.94482476,7.49678194 Z" id="top-inner" fill="#EF6E21"></path>
-            </g>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+    <circle fill="#b1e8e0" cx="50" cy="50" r="50"/>
+    <path fill="#e66d18" d="M42.912 41.194L43.569 87l40.617-15.681 3.141-42.23-44.416 12.105z"/>
+    <path fill="#b4510b" d="M15.371 24.55l2.995 40.923L43.569 87l-.657-45.806L15.371 24.55z"/>
+    <path fill="#f18e48" d="M15.371 24.55l27.541 16.644 44.416-12.105L56.353 15.54l-40.982 9.01z"/>
+    <path fill="#c64d07" d="M47.514 44.564l.292 36.865L80.972 68.98l2.192-34.526-35.65 10.11z"/>
+    <path fill="#a23c00" d="M20.193 63.684L40.94 80.81l-.877-36.727L17.855 30.12l2.338 33.564z"/>
+    <path fill="#ef6e21" d="M21.8 25.031l22.573 13.205 35.942-9.56-24.911-11.211L21.8 25.031z"/>
 </svg>

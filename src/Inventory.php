@@ -11,14 +11,12 @@
 
 namespace doublesecretagency\inventory;
 
-use yii\base\Event;
-
 use Craft;
 use craft\base\Plugin;
-use craft\web\UrlManager;
 use craft\events\RegisterUrlRulesEvent;
-
+use craft\web\UrlManager;
 use doublesecretagency\inventory\services\InventoryService;
+use yii\base\Event;
 
 /**
  * Class Inventory
@@ -27,14 +25,20 @@ use doublesecretagency\inventory\services\InventoryService;
 class Inventory extends Plugin
 {
 
-    /** @var Plugin  $plugin  Self-referential plugin property. */
-    public static $plugin;
+    /**
+     * @var Plugin Self-referential plugin property.
+     */
+    public static Plugin $plugin;
 
-    /** @var bool  $hasCpSection  The plugin has its own section. */
-    public $hasCpSection = true;
+    /**
+     * @var bool The plugin has its own section.
+     */
+    public bool $hasCpSection = true;
 
-    /** @inheritDoc */
-    public function init()
+    /**
+     * @inheritdoc
+     */
+    public function init(): void
     {
         parent::init();
         self::$plugin = $this;
@@ -60,8 +64,10 @@ class Inventory extends Plugin
         );
     }
 
-    /** @inheritDoc */
-    public function getCpNavItem()
+    /**
+     * @inheritdoc
+     */
+    public function getCpNavItem(): ?array
     {
         $item = parent::getCpNavItem();
         $item['subnav'] = [

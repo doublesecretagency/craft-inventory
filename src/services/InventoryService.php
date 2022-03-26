@@ -11,13 +11,13 @@
 
 namespace doublesecretagency\inventory\services;
 
-use Craft;
-use craft\base\Component;
-use craft\db\Query;
-use craft\helpers\UrlHelper;
+use craft\base\Field;
 use DateTime;
 use DateTimeZone;
 use Exception;
+use craft\base\Component;
+use craft\db\Query;
+use craft\helpers\UrlHelper;
 
 /**
  * Class InventoryService
@@ -29,12 +29,12 @@ class InventoryService extends Component
     /**
      * Collect all layouts based on existing fields.
      *
-     * @param array  &$context The current template context.
+     * @param array &$context The current template context.
      *
      * @return void
      * @throws Exception
      */
-    public function getFieldLayouts(&$context)
+    public function getFieldLayouts(array &$context): void
     {
         $context['fieldLayouts'] = [];
 
@@ -55,11 +55,11 @@ class InventoryService extends Component
     /**
      * Get partial data for all layouts which contain the specified field.
      *
-     * @param craft\base\Field  $field  Model of specified field.
+     * @param Field $field Model of specified field.
      *
-     * @return array  Partial data for all layouts which contain the specified field.
+     * @return array Partial data for all layouts which contain the specified field.
      */
-    private function _getRelatedLayoutIds($field): array
+    private function _getRelatedLayoutIds(Field $field): array
     {
         return (new Query())
             ->select(['[[layoutId]]','[[tabId]]'])
@@ -74,10 +74,10 @@ class InventoryService extends Component
      *
      * @param array $row Partial field layout data.
      *
-     * @return array  Relevant layout data to display.
+     * @return array Relevant layout data to display.
      * @throws Exception
      */
-    private function _getLayoutData($row): array
+    private function _getLayoutData(array $row): array
     {
         // Get element type
         $layout = (new Query())
