@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fixed bug caused by recently deleted Global Sets. ([#18](https://github.com/doublesecretagency/craft-inventory/issues/18))
+
 ## 2.2.0 - 2022-03-26
 
 ### Added

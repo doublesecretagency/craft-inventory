@@ -87,6 +87,7 @@ class InventoryService extends Component
             ->one();
 
         // Set default data
+        /** @noinspection PhpArrayIndexImmediatelyRewrittenInspection */
         $data = [
             'id'          => $row['layoutId'],
             'elementType' => null,
@@ -125,9 +126,9 @@ class InventoryService extends Component
                     ->where('[[fieldLayoutId]]=:id', [':id' => $row['layoutId']])
                     ->one();
 
-                // If no valid section ID, bail
+                // If no valid entry type, bail
                 if (!$entryType) {
-                    $error = 'Orphaned layout';
+                    $error = 'Recently deleted';
                     $data['section'] = '<span class="error">'.$error.'</span>';
                     return $data;
                 }
@@ -147,8 +148,8 @@ class InventoryService extends Component
                     ->scalar();
 
                 // Set entry layout data
-                $data['section']    = ($sectionName ?? null);
-                $data['entryType']  = $entryType['name'];
+                $data['section']   = ($sectionName ?? null);
+                $data['entryType'] = $entryType['name'];
 
                 // Edit layout
                 $editLayoutPath = 'settings/sections/'.$entryType['sectionId'].'/entrytypes/'.$entryType['id'];
@@ -165,8 +166,15 @@ class InventoryService extends Component
                     ->where('[[fieldLayoutId]]=:id', [':id' => $row['layoutId']])
                     ->one();
 
+                // If no valid global set, bail
+                if (!$globalSet) {
+                    $error = 'Recently deleted';
+                    $data['section'] = '<span class="error">'.$error.'</span>';
+                    return $data;
+                }
+
                 // Get section
-                $data['section'] = ($globalSet ? $globalSet['name'] : null);
+                $data['section'] = $globalSet['name'];
 
                 // Get tab
                 $data['tab'] = (new Query())
@@ -190,17 +198,19 @@ class InventoryService extends Component
                     ->where('[[fieldLayoutId]]=:id', [':id' => $row['layoutId']])
                     ->one();
 
-                // If a valid volume exists
-                if ($volume) {
-
-                    // Get section
-                    $data['section'] = $volume['name'];
-
-                    // Edit layout
-                    $editLayoutPath = 'settings/assets/volumes/'.$volume['id'].'#assetvolume-fieldlayout';
-                    $data['editLayout'] = UrlHelper::cpUrl($editLayoutPath);
-
+                // If no valid volume, bail
+                if (!$volume) {
+                    $error = 'Recently deleted';
+                    $data['section'] = '<span class="error">'.$error.'</span>';
+                    return $data;
                 }
+
+                // Get section
+                $data['section'] = $volume['name'];
+
+                // Edit layout
+                $editLayoutPath = 'settings/assets/volumes/'.$volume['id'].'#assetvolume-fieldlayout';
+                $data['editLayout'] = UrlHelper::cpUrl($editLayoutPath);
 
                 break;
 
