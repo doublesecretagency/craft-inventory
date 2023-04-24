@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.0 - 2023-04-24
 
 ### Changed
 - Moved everything over to **Utilities > Field Inventory**.
