@@ -1,1 +1,11 @@
-{% redirect url('inventory/fields') %}
+{% extends '_layouts/cp' %}
+{% set title = "Field Inventory (has moved)"|t %}
+
+{% block content %}
+    <p>Please note, this tool has moved! As of <strong>v3.0</strong>, it is now considered a <strong>Utility</strong>.</p>
+    <p>It can be found at <a href="{{ cpUrl('utilities/inventory?welcome=1') }}" style="font-weight:bold">Utilities > Field Inventory</a></p>
+    <p>Please access the tool via the Utilities page. You may safely remove the sidebar navigation link.</p>
+    <div style="padding-top:8px">
+        <a href="{{ cpUrl('inventory/remove-from-sidebar') }}" type="button" class="btn secondary">I understand, remove "Inventory" from the sidebar navigation</a>
+    </div>
+{% endblock %}

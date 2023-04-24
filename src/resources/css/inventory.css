@@ -1,3 +1,19 @@
+div#field-groups {
+    height: 70px;
+    text-align: right;
+}
+
+div#field-groups p {
+    float: right;
+    padding-right: 10px;
+    margin-top: 7px;
+    font-weight: bold;
+}
+div#field-groups .select {
+    text-align: right;
+    float: right;
+}
+
 table.inventory .layout-details {
     position: relative;
     display: inline-block;

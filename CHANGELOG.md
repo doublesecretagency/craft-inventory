@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Changed
+- Moved everything over to **Utilities > Field Inventory**.
+- Automatically redirect to Field Inventory utility when the plugin is installed.
+
 ### Fixed
 - Fixed bug caused by recently deleted Global Sets. ([#18](https://github.com/doublesecretagency/craft-inventory/issues/18))
 

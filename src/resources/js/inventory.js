@@ -23,6 +23,13 @@ function deleteField(el) {
 
 // On ready
 $(function () {
+
+    // Switch field group when a new group is selected
+    $('#content').on('change', 'select#fieldGroup', function () {
+        window.location.href = `${window.inventoryUrl}/${this.value}`;
+    });
+
+    // Show/hide the field layout results
     $('.tableview').on('click', '.fieldtoggle', function () {
         var id = $(this).data('id');
         var $tr = $('tr#field-'+id);
@@ -36,4 +43,5 @@ $(function () {
             $(this).addClass('expanded');
         }
     });
+
 });

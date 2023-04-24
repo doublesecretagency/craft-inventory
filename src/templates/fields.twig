@@ -1,13 +1,14 @@
-{% extends '_layouts/cp' %}
+{% import '_includes/forms' as forms %}
 {% set title = "Field Inventory"|t %}
 {% set selectedSubnavItem = 'fields' %}
 
-{% set crumbs = [
-    { label: 'Settings'|t,  url: cpUrl('settings') },
-    { label: 'Inventory'|t, url: cpUrl('inventory') },
-    { label: 'Fields'|t,    url: cpUrl('inventory/fields') },
-] %}
+{# Whether to display the page in "Welcome" mode #}
+{% set welcome = craft.app.request.getQueryParam('welcome') %}
 
+{# Get third segment as the group ID #}
+{% set groupId = craft.app.request.getSegment(3) %}
+
+{# Get all field groups #}
 {% set groups = craft.app.fields.getAllGroups()|index('id') %}
 
 {% if (groupId ?? false) %}
@@ -21,7 +22,12 @@
 
 {% hook 'getFieldLayouts' %}
 
+{# Load resources #}
 {% do view.registerAssetBundle('doublesecretagency\\inventory\\web\\assets\\InventoryAssets') %}
+
+{# Pass inventory URL to JavaScript #}
+{% set inventoryUrl = cpUrl('utilities/inventory') %}
+{% js "window.inventoryUrl = '#{inventoryUrl}';" %}
 
 {% macro layoutRow(layout) %}
     {% set deleted = (layout.deleted ? 'deleted') %}
@@ -47,19 +53,35 @@
 {% endmacro %}
 {% from _self import layoutRow %}
 
-{% block sidebar %}
-    <nav>
-        <ul id="groups">
-            <li><a href="{{ url('inventory/fields') }}"{% if groupId is not defined %} class="sel"{% endif %}>{{ 'All Fields'|t }}</a></li>
-            {% for group in groups %}
-                <li><a href="{{ url("inventory/fields/#{group.id}") }}"{% if groupId is defined and group.id == groupId %} class="sel"{% endif %} data-id="{{ group.id }}">{{ group.name|t }}</a></li>
-            {% endfor %}
-        </ul>
-    </nav>
-{% endblock %}
-
 {% block content %}
+
+    {# Show intro message #}
+    {% if welcome %}
+        {% set iconUrl = view.getAssetManager().getPublishedUrl('@doublesecretagency/inventory/icon.svg', true) %}
+        <div class="pane" style="">
+            <img src="{{ iconUrl }}" alt="" width="120" style="float:left; margin:12px;">
+            <div style="padding-left: 160px">
+                <h2>Welcome! Thanks for using the Inventory plugin.</h2>
+                <p>Below, you will see a complete list of existing fields. To see where each field is currently being used, click the <strong>arrow toggle</strong> in the left column.</p>
+                <p>Toggling each list of field layouts will show you where the field is currently in use.</p>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+
+        <hr>
+    {% endif %}
+
+    <div id="field-groups">
+        {{ forms.select({
+            id: 'fieldGroup',
+            name: 'fieldGroup',
+            options: fieldGroupOptions,
+            value: groupId,
+        }) }}
+        <p>Filter by field group:</p>
+    </div>
     <div id="fields-vue-admin-table" class="vue-admin-table {{ fields ? 'hidden' }}">
+        <hr>
         <div class="zilch">
             <p>
                 {% if groupId is defined %}
@@ -104,7 +126,7 @@
                                 </td>
                                 <td><span class="status {{ field.getIsTranslatable() ? 'live' : 'disabled' }} }}"></span></td>
                                 {% if groupId is not defined %}<td>{{ field.group.name|t }}</td>{% endif %}
-                                <td class="btn-col"><a href="{{ url('settings/fields/edit/' ~ field.id) }}" class="btn edit icon"> {{ "Edit field"|t }}</a></td>
+                                <td class="btn-col"><a href="{{ cpUrl('settings/fields/edit/' ~ field.id) }}" class="btn edit icon"> {{ "Edit field"|t }}</a></td>
                             </tr>
                             <tr id="field-{{ field.id }}" {{ not showDetails ? 'style="display:none;"'|raw }}>
                                 <td colspan="100">

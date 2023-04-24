@@ -36,12 +36,20 @@ class InventoryService extends Component
      */
     public function getFieldLayouts(array &$context): void
     {
+        // Initialize field layouts array
         $context['fieldLayouts'] = [];
 
+        // Get field group options
+        $context['fieldGroupOptions'] = $this->_getFieldGroupOptions($context['groups']);
+
+        // Loop through fields
         foreach ($context['fields'] as $field) {
 
+            // Get related layout and tab IDs
+            $relatedIds = $this->_getRelatedLayoutIds($field);
+
             $layouts = [];
-            foreach ($this->_getRelatedLayoutIds($field) as $row) {
+            foreach ($relatedIds as $row) {
                 $layouts[] = $this->_getLayoutData($row);
             }
 
@@ -50,6 +58,36 @@ class InventoryService extends Component
                 'layouts' => $layouts,
             ];
         }
+    }
+
+    /**
+     * Get all options for the field group select.
+     *
+     * @param array $groups
+     *
+     * @return array
+     */
+    private function _getFieldGroupOptions(array $groups): array
+    {
+        // Initialize field group options
+        $fieldGroupOptions = [
+            [
+                'label' => 'All Fields',
+                'value' => '',
+            ]
+        ];
+
+        // Loop through field groups
+        foreach ($groups as $group) {
+            // Append option for each group
+            $fieldGroupOptions[] = [
+                'label' => $group->name,
+                'value' => $group->id,
+            ];
+        }
+
+        // Return the field group options
+        return $fieldGroupOptions;
     }
 
     /**
@@ -128,8 +166,7 @@ class InventoryService extends Component
 
                 // If no valid entry type, bail
                 if (!$entryType) {
-                    $error = 'Recently deleted';
-                    $data['section'] = '<span class="error">'.$error.'</span>';
+                    $data['section'] = 'Recently deleted';
                     return $data;
                 }
 
@@ -168,8 +205,7 @@ class InventoryService extends Component
 
                 // If no valid global set, bail
                 if (!$globalSet) {
-                    $error = 'Recently deleted';
-                    $data['section'] = '<span class="error">'.$error.'</span>';
+                    $data['section'] = 'Recently deleted';
                     return $data;
                 }
 
@@ -200,8 +236,7 @@ class InventoryService extends Component
 
                 // If no valid volume, bail
                 if (!$volume) {
-                    $error = 'Recently deleted';
-                    $data['section'] = '<span class="error">'.$error.'</span>';
+                    $data['section'] = 'Recently deleted';
                     return $data;
                 }
 
