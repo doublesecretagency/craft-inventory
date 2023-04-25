@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.1 - 2023-04-25
 
 ### Changed
 - New plugin icon!
