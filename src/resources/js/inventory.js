@@ -26,7 +26,18 @@ $(function () {
 
     // Switch field group when a new group is selected
     $('#content').on('change', 'select#fieldGroup', function () {
-        window.location.href = `${window.inventoryUrl}/${this.value}`;
+        // Compile target URL
+        let url = window.inventoryUrl;
+        // If value was specified, append it
+        if (this.value) {
+            url += `/${this.value}`;
+        }
+        // If query string exists, append it
+        if (window.inventoryQuery) {
+            url += `?${window.inventoryQuery}`;
+        }
+        // Go to target URL
+        window.location.href = url;
     });
 
     // Show/hide the field layout results

@@ -25,9 +25,10 @@
 {# Load resources #}
 {% do view.registerAssetBundle('doublesecretagency\\inventory\\web\\assets\\InventoryAssets') %}
 
-{# Pass inventory URL to JavaScript #}
-{% set inventoryUrl = cpUrl('utilities/inventory') %}
-{% js "window.inventoryUrl = '#{inventoryUrl}';" %}
+{# Pass inventory URL to JavaScript (separate query string) #}
+{% set urlPart = cpUrl('utilities/inventory')|split('?') %}
+{% js "window.inventoryUrl = '#{urlPart[0]}';" %}
+{% js "window.inventoryQuery = '#{urlPart[1]}';" %}
 
 {% macro layoutRow(layout) %}
     {% set deleted = (layout.deleted ? 'deleted') %}
