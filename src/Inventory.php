@@ -49,18 +49,6 @@ class Inventory extends Plugin
         parent::init();
         self::$plugin = $this;
 
-        // Check if it is a web request
-        if (Craft::$app->getRequest()->getIsCpRequest()) {
-            // Whether a cookie has been set to hide "Inventory" from the sidebar
-            $hideFromSidebar = Craft::$app->getRequest()->getCookies()->getValue('hide-inventory-from-sidebar');
-
-            // If cookie exists
-            if ($hideFromSidebar) {
-                // Hide "Inventory" from the sidebar
-                $this->hasCpSection = false;
-            }
-        }
-
         // Load plugin components
         $this->setComponents([
             'inventoryService' => InventoryService::class,
@@ -72,12 +60,37 @@ class Inventory extends Plugin
         // Set template hook
         Craft::$app->getView()->hook('getFieldLayouts', [$inventoryService, 'getFieldLayouts']);
 
-        // Register
+        // Register components
         $this->_registerUtilities();
         $this->_registerCpRoutes();
 
         // Redirect after plugin install
         $this->_postInstallRedirect();
+
+        // Manage whether "Inventory" should appear in the sidebar
+        $this->_manageSidebarNav();
+    }
+
+    // ========================================================================= //
+
+    /**
+     * Manage whether "Inventory" should appear in the sidebar.
+     */
+    private function _manageSidebarNav(): void
+    {
+        // If not a web request, bail
+        if (!Craft::$app->getRequest()->getIsCpRequest()) {
+            return;
+        }
+
+        // Whether a cookie has been set to hide "Inventory" from the sidebar
+        $hideFromSidebar = Craft::$app->getRequest()->getCookies()->getValue('hide-inventory-from-sidebar');
+
+        // If cookie exists
+        if ($hideFromSidebar) {
+            // Hide "Inventory" from the sidebar
+            $this->hasCpSection = false;
+        }
     }
 
     // ========================================================================= //

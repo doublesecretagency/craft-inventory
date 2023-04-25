@@ -5,6 +5,7 @@
 ### Fixed
 - Fixed a bug occurring when disabled plugins leave behind orphaned element types.
 - Fixed a bug occurring when changing field groups on a multisite project.
+- Fixed a bug which caused CLI commands to fail. (thanks @Jensderond)
 
 ## 3.0.0 - 2023-04-24
 
