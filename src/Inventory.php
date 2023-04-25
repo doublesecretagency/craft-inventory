@@ -49,13 +49,16 @@ class Inventory extends Plugin
         parent::init();
         self::$plugin = $this;
 
-        // Whether a cookie has been set to hide "Inventory" from the sidebar
-        $hideFromSidebar = Craft::$app->getRequest()->getCookies()->getValue('hide-inventory-from-sidebar');
+        // Check if it is a web request
+        if (Craft::$app->getRequest()->getIsCpRequest()) {
+            // Whether a cookie has been set to hide "Inventory" from the sidebar
+            $hideFromSidebar = Craft::$app->getRequest()->getCookies()->getValue('hide-inventory-from-sidebar');
 
-        // If cookie exists
-        if ($hideFromSidebar) {
-            // Hide "Inventory" from the sidebar
-            $this->hasCpSection = false;
+            // If cookie exists
+            if ($hideFromSidebar) {
+                // Hide "Inventory" from the sidebar
+                $this->hasCpSection = false;
+            }
         }
 
         // Load plugin components
