@@ -149,8 +149,14 @@ class InventoryService extends Component
             return $data;
         }
 
-        // Set element type
-        $data['elementType'] = $layout['type']::displayName();
+        // Try to set element type
+        try {
+            // Use the element's display name
+            $data['elementType'] = $layout['type']::displayName();
+        } catch (Exception $e) {
+            // Use the element's type
+            $data['elementType'] = $layout['type'];
+        }
 
         // Configure based on element type
         switch ($layout['type']::refHandle()) {

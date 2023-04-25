@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fixed a bug occurring when disabled plugins leave behind orphaned element types.
+
 ## 3.0.0 - 2023-04-24
 
 ### Changed
