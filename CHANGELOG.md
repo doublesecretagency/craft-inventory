@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fixed a bug in multi-site compatibility. ([#21](https://github.com/doublesecretagency/craft-inventory/issues/21))
+
 ## 3.0.1 - 2023-04-25
 
 ### Changed
