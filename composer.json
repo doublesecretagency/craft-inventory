@@ -12,7 +12,7 @@
         "fields"
     ],
     "support": {
-        "docs": "https://github.com/doublesecretagency/craft-inventory/blob/v2/README.md",
+        "docs": "https://github.com/doublesecretagency/craft-inventory/blob/v3/README.md",
         "issues": "https://github.com/doublesecretagency/craft-inventory/issues"
     },
     "license": "MIT",
@@ -33,8 +33,8 @@
     "extra": {
         "name": "Inventory",
         "handle": "inventory",
-        "schemaVersion": "2.0.0",
-        "changelogUrl": "https://raw.githubusercontent.com/doublesecretagency/craft-inventory/v2/CHANGELOG.md",
+        "schemaVersion": "3.0.0",
+        "changelogUrl": "https://raw.githubusercontent.com/doublesecretagency/craft-inventory/v3/CHANGELOG.md",
         "class": "doublesecretagency\\inventory\\Inventory"
     }
 }
