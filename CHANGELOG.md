@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.3 - 2023-05-01
 
 ### Changed
 - Updated repo URLs.
