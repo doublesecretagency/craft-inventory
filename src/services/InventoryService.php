@@ -100,9 +100,9 @@ class InventoryService extends Component
     private function _getRelatedLayoutIds(Field $field): array
     {
         return (new Query())
-            ->select(['[[layoutId]]','[[tabId]]'])
-            ->from(['{{%fieldlayoutfields}}'])
-            ->where('[[fieldId]]=:id', [':id' => $field->id])
+            ->select(['[[layoutId]]','[[id]] AS tabId'])
+            ->from(['{{%fieldlayouttabs}}'])
+            ->where(['like', 'elements', "%{$field->uid}%", false])
             ->orderBy('[[layoutId]] ASC')
             ->all();
     }
@@ -125,7 +125,6 @@ class InventoryService extends Component
             ->one();
 
         // Set default data
-        /** @noinspection PhpArrayIndexImmediatelyRewrittenInspection */
         $data = [
             'id'          => $row['layoutId'],
             'elementType' => null,
