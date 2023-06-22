@@ -1,0 +1,61 @@
+{% set field   = f.field %}
+{% set layouts = f.layouts %}
+{% set showDetails = false %}
+
+<tr>
+    <td><a class="fieldtoggle collapsed" data-id="{{ field.id }}" title="Show/hide details" onclick="toggleFieldLayouts(this); return false;">&nbsp; {{ layouts|length }}</a></td>
+    <td><span class="a" onclick="toggleFieldLayouts(this)">{{ field.name }}</span></td>
+    <td><code>{{ field.handle }}</code></td>
+    <td>
+        {% set fieldType = field.displayName %}
+        {% if 'MissingField' != fieldType %}
+            {{ fieldType }}
+        {% else %}
+            <span class="error">{{ field['expectedType'] }}</span>
+        {% endif %}
+    </td>
+    <td><span class="status {{ field.getIsTranslatable() ? 'live' : 'disabled' }} }}"></span></td>
+    {% if groupId is not defined %}<td>{{ field.group.name|t }}</td>{% endif %}
+    <td class="btn-col"><a href="{{ cpUrl('settings/fields/edit/' ~ field.id) }}" class="btn edit icon"> {{ "Edit field"|t }}</a></td>
+</tr>
+
+<tr id="field-{{ field.id }}" {{ not showDetails ? 'style="display:none;"'|raw }}>
+    <td colspan="100">
+        <div class="layout-details">
+            {% if layouts %}
+
+                <table class="data fullwidth">
+                    <thead>
+                    <tr>
+                        <th scope="col">{{ 'Layout ID'|t }}</th>
+                        <th scope="col">{{ 'Element'|t }}</th>
+                        <th scope="col">{{ 'Section'|t }}</th>
+                        <th scope="col">{{ 'Entry Type'|t }}</th>
+                        <th scope="col">{{ 'Tab'|t }}</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for layout in layouts %}
+                            {% include 'inventory/fields/_results/field-layouts' with {'layout':layout} only %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+
+                <table class="data fullwidth">
+                    <tbody>
+                    <tr>
+                        <td class="unused">This field is not being used anywhere.</td>
+                        <td class="btn-col">
+                            <a class="btn delete icon" data-id="{{ field.id }}" data-name="{{ field.name }}" onclick="deleteField(this); return false;"> {{ 'Delete field'|t }}</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            {% endif %}
+        </div>
+    </td>
+</tr>

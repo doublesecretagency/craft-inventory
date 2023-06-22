@@ -1,0 +1,24 @@
+{% set title = "Field Inventory"|t %}
+{% set selectedSubnavItem = 'fields' %}
+
+{# Load resources #}
+{% do view.registerAssetBundle('doublesecretagency\\inventory\\web\\assets\\InventoryAssets') %}
+
+{# Pass URL parts to JavaScript (separate query string) #}
+{% set urlPart = cpUrl('utilities/inventory')|split('?') %}
+{% set inventoryUrl = urlPart[0] ?? '' %}
+{% set inventoryQuery = urlPart[1] ?? '' %}
+{% js "window.inventoryUrl = '#{inventoryUrl}';" %}
+{% js "window.inventoryQuery = '#{inventoryQuery}';" %}
+
+{% block content %}
+
+    {# If specified, show welcome message #}
+    {% if craft.app.request.getQueryParam('welcome') %}
+        {% include 'inventory/fields/_welcome' %}
+        <hr>
+    {% endif %}
+
+    {% include 'inventory/fields/_results' %}
+
+{% endblock %}

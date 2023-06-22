@@ -1,0 +1,71 @@
+{% import '_includes/forms' as forms %}
+
+{# Get third segment as the group ID #}
+{% set groupId = craft.app.request.getSegment(3) %}
+
+{# Get all field groups #}
+{% set groups = craft.app.fields.getAllGroups()|index('id') %}
+
+{# If a group is specified #}
+{% if (groupId ?? false) %}
+    {# If group doesn't exist, throw 404 #}
+    {% if groups[groupId] is not defined %}
+        {% exit 404 %}
+    {% endif %}
+    {# Get fields of group #}
+    {% set fields = groups[groupId].getFields() %}
+{% else %}
+    {# Get all fields #}
+    {% set fields = craft.app.fields.getAllFields() %}
+{% endif %}
+
+{# Get the field layouts via PHP #}
+{% hook 'getFieldLayouts' %}
+
+<div id="field-groups">
+    {{ forms.select({
+        id: 'fieldGroup',
+        name: 'fieldGroup',
+        options: fieldGroupOptions,
+        value: groupId,
+    }) }}
+    <p>Filter by field group:</p>
+</div>
+
+<div id="fields-vue-admin-table" class="vue-admin-table {{ fields ? 'hidden' }}">
+    <hr>
+    <div class="zilch">
+        <p>
+            {% if groupId is defined %}
+                {{ "This group doesn’t have any fields yet."|t }}
+            {% else %}
+                {{ "No fields exist yet."|t }}
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<div id="fields-vue-admin-table" class="vue-admin-table {{ not fields ? 'hidden' }}">
+    <div class="tableview">
+        <div class="tablepane vue-admin-tablepane">
+            <table class="vuetable data fullwidth inventory">
+                <thead>
+                <tr>
+                    <th scope="col">{{ 'Layouts'|t }}</th>
+                    <th scope="col">{{ 'Name'|t }}</th>
+                    <th scope="col">{{ 'Handle'|t }}</th>
+                    <th scope="col">{{ 'Type'|t }}</th>
+                    <th scope="col" title="{{ 'Translatable'|t }}">{{ 'T'|t }}</th>
+                    {% if groupId is not defined %}<th scope="col">{{ 'Group'|t }}</th>{% endif %}
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="vuetable-body">
+                    {% for f in fieldLayouts %}
+                        {% include 'inventory/fields/_results/field' %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

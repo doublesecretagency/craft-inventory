@@ -1,0 +1,20 @@
+{% set deleted = (layout.deleted ? 'deleted') %}
+    {% if deleted %}
+        {% set dateDeleted = date(layout.deleted).diff(now) %}
+        {% set duration = dateDeleted|duration(false) %}
+        {% set duration = duration|replace('/ and .*$/','') %}
+        {% set duration = duration|replace('/,.*$/','') %}
+        {% set link = "<strong>Deleted #{duration} ago</strong>" %}
+    {% elseif layout.editLayout %}
+        {% set link = '<a href="' ~ layout.editLayout ~ '" class="btn edit icon"> ' ~ 'Edit layout'|t ~ '</a>' %}
+    {% else %}
+        {% set link = '&nbsp;' %}
+    {% endif %}
+<tr>
+    <td class="code">{{ layout.id }}</td>
+    <td class="{{ deleted }}">{{ (layout.elementType ?? '-')|raw }}</td>
+    <td class="{{ deleted }}">{{ (layout.section ?? '-')|raw }}</td>
+    <td class="{{ deleted }}">{{ layout.entryType ?? '-' }}</td>
+    <td class="{{ deleted }}">{{ layout.tab ?? '-' }}</td>
+    <td class="btn-col">{{ link|raw }}</td>
+</tr>
