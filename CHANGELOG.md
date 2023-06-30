@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.1.0 - 2023-06-30
 
 ### Fixed
 - Fixed a major issue which allowed false negatives to be reported. ([#17](https://github.com/doublesecretagency/craft-inventory/issues/17))
