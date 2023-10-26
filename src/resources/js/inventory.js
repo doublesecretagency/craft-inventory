@@ -8,14 +8,16 @@ function deleteField(el) {
     var id = $(el).data('id');
     var name = $(el).data('name');
     var warning = Craft.t('app', 'Are you sure you want to delete “{name}”?', {name: name});
+    var success = Craft.t('app', 'Successfully deleted “{name}”', {name: name});
+    var error   = Craft.t('app', 'Unable to delete “{name}”', {name: name});
     if (confirm(warning)) {
         Craft.postActionRequest('fields/delete-field', {id:id}, $.proxy(function(response, textStatus) {
             if (textStatus === 'success') {
-                if (response.success) {
-                    location.reload();
-                } else {
-                    Craft.cp.displayError();
-                }
+                $('tr#field-'+id).remove();
+                $('tr#field-details-'+id).remove();
+                Craft.cp.displaySuccess(success);
+            } else {
+                Craft.cp.displayError(error);
             }
         }));
     }
@@ -43,7 +45,7 @@ $(function () {
     // Show/hide the field layout results
     $('.tableview').on('click', '.fieldtoggle', function () {
         var id = $(this).data('id');
-        var $tr = $('tr#field-'+id);
+        var $tr = $('tr#field-details-'+id);
         if ($(this).hasClass('expanded')) {
             $tr.hide();
             $(this).removeClass('expanded');

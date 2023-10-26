@@ -2,7 +2,7 @@
 {% set layouts = f.layouts %}
 {% set showDetails = false %}
 
-<tr>
+<tr id="field-{{ field.id }}">
     <td><a class="fieldtoggle collapsed" data-id="{{ field.id }}" title="Show/hide details" onclick="toggleFieldLayouts(this); return false;">&nbsp; {{ layouts|length }}</a></td>
     <td><span class="a" onclick="toggleFieldLayouts(this)">{{ field.name }}</span></td>
     <td><code>{{ field.handle }}</code></td>
@@ -23,7 +23,7 @@
     {% endif %}
 </tr>
 
-<tr id="field-{{ field.id }}" {{ not showDetails ? 'style="display:none;"'|raw }}>
+<tr id="field-details-{{ field.id }}" {{ not showDetails ? 'style="display:none;"'|raw }}>
     <td colspan="100">
         <div class="layout-details">
             {% if layouts %}
