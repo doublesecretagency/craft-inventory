@@ -1,5 +1,8 @@
 {% import '_includes/forms' as forms %}
 
+{# Whether field changes are currently allowed #}
+{% set allowFieldChanges = craft.app.config.general.allowAdminChanges %}
+
 {# Get third segment as the group ID #}
 {% set groupId = craft.app.request.getSegment(3) %}
 
@@ -21,6 +24,14 @@
 
 {# Get the field layouts via PHP #}
 {% hook 'getFieldLayouts' %}
+
+{% if not allowFieldChanges %}
+    <div class="readable" style="margin-bottom:10px">
+        <blockquote class="note warning">
+            <p><strong>[Read Only]</strong>&nbsp; Field changes are not permitted in this environment.</p>
+        </blockquote>
+    </div>
+{% endif %}
 
 <div id="field-groups">
     {{ forms.select({
@@ -56,8 +67,12 @@
                     <th scope="col">{{ 'Handle'|t }}</th>
                     <th scope="col">{{ 'Type'|t }}</th>
                     <th scope="col" title="{{ 'Translatable'|t }}">{{ 'T'|t }}</th>
-                    {% if groupId is not defined %}<th scope="col">{{ 'Group'|t }}</th>{% endif %}
-                    <th scope="col"></th>
+                    {% if groupId is not defined %}
+                        <th scope="col">{{ 'Group'|t }}</th>
+                    {% endif %}
+                    {% if allowFieldChanges %}
+                        <th scope="col"></th>
+                    {% endif %}
                 </tr>
                 </thead>
                 <tbody class="vuetable-body">

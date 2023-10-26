@@ -16,5 +16,7 @@
     <td class="{{ deleted }}">{{ (layout.section ?? '-')|raw }}</td>
     <td class="{{ deleted }}">{{ layout.entryType ?? '-' }}</td>
     <td class="{{ deleted }}">{{ layout.tab ?? '-' }}</td>
-    <td class="btn-col">{{ link|raw }}</td>
+    {% if allowFieldChanges %}
+        <td class="btn-col">{{ link|raw }}</td>
+    {% endif %}
 </tr>

@@ -15,8 +15,12 @@
         {% endif %}
     </td>
     <td><span class="status {{ field.getIsTranslatable() ? 'live' : 'disabled' }} }}"></span></td>
-    {% if groupId is not defined %}<td>{{ field.group.name|t }}</td>{% endif %}
-    <td class="btn-col"><a href="{{ cpUrl('settings/fields/edit/' ~ field.id) }}" class="btn edit icon"> {{ "Edit field"|t }}</a></td>
+    {% if groupId is not defined %}
+        <td>{{ field.group.name|t }}</td>
+    {% endif %}
+    {% if allowFieldChanges %}
+        <td class="btn-col"><a href="{{ cpUrl('settings/fields/edit/' ~ field.id) }}" class="btn edit icon"> {{ "Edit field"|t }}</a></td>
+    {% endif %}
 </tr>
 
 <tr id="field-{{ field.id }}" {{ not showDetails ? 'style="display:none;"'|raw }}>
@@ -32,12 +36,14 @@
                         <th scope="col">{{ 'Section'|t }}</th>
                         <th scope="col">{{ 'Entry Type'|t }}</th>
                         <th scope="col">{{ 'Tab'|t }}</th>
-                        <th scope="col"></th>
+                        {% if allowFieldChanges %}
+                            <th scope="col"></th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
                         {% for layout in layouts %}
-                            {% include 'inventory/fields/_results/field-layouts' with {'layout':layout} only %}
+                            {% include 'inventory/fields/_results/field-layouts' %}
                         {% endfor %}
                     </tbody>
                 </table>
@@ -48,9 +54,13 @@
                     <tbody>
                     <tr>
                         <td class="unused">This field is not being used anywhere.</td>
-                        <td class="btn-col">
-                            <a class="btn delete icon" data-id="{{ field.id }}" data-name="{{ field.name }}" onclick="deleteField(this); return false;"> {{ 'Delete field'|t }}</a>
-                        </td>
+                        {% if allowFieldChanges %}
+                            <td class="btn-col">
+                                <a class="btn delete icon" data-id="{{ field.id }}" data-name="{{ field.name }}" onclick="deleteField(this); return false;">
+                                    {{ 'Delete field'|t }}
+                                </a>
+                            </td>
+                        {% endif %}
                     </tr>
                     </tbody>
                 </table>

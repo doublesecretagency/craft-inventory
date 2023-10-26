@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Denote when in “read only” mode. ([#22](https://github.com/doublesecretagency/craft-inventory/issues/22))
+
 ## 3.1.0 - 2023-06-30
 
 ### Fixed
