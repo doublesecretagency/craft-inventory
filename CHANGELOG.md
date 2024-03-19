@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.2.0 - 2024-03-19
 
 ### Changed
 - Removed legacy page from sidebar nav.
