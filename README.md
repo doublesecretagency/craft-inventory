@@ -1,6 +1,6 @@
-<img align="left" width="120" src="https://raw.githubusercontent.com/doublesecretagency/craft-inventory/a81816df242c3874c017ec1d99e6e7980119c681/src/icon.svg" alt="Plugin icon">
+<img align="left" width="66" src="https://raw.githubusercontent.com/doublesecretagency/craft-inventory/a81816df242c3874c017ec1d99e6e7980119c681/src/icon.svg" alt="Plugin icon">
 
-# Inventory plugin for Craft CMS
+# Inventory plugin for Craft CMS 4
 
 **Take stock of how your fields are being used.**
 
@@ -10,9 +10,19 @@
 
 You no longer have to wonder... Inventory will show you exactly where your fields appear!
 
+---
+
+## ⭐️ INVENTORY HAS BEEN RETIRED ⭐️
+
+Inventory will not be ported to Craft 5, because it is no longer necessary!
+
+Craft's new native field management UX replaces all functionality that Inventory provided prior to Craft 5. 👏
+
+---
+
 ## How to Install
 
-See official installation instructions on the [Craft CMS Plugin Store...](https://plugins.craftcms.com/inventory)
+See official installation instructions on the [Craft CMS Plugin Store...](https://plugins.craftcms.com/inventory?craft4)
 
 ## Viewing the Field Inventory
 
