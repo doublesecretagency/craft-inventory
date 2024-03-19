@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Removed legacy page from sidebar nav.
+
 ## 3.1.1 - 2023-10-26
 
 ### Changed
